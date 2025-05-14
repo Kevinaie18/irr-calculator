@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { calcIRR, calcMultiple, calcTime, formatPercentage, formatMultiple, formatTime } from './utils';
+import { calcIRR, calcMultiple, calcTime, formatPercentage, formatMultiple, formatTime } from '../utils/calculationUtils';
+import { SLIDER_RANGES } from '../constants/sliderRanges';
 
-// Slider ranges and steps
-const RANGES = {
-  time: { min: 0.5, max: 30, step: 0.1 },
-  multiple: { min: 0.5, max: 10, step: 0.01 },
-  irr: { min: -0.1, max: 1, step: 0.001 } // Step as decimal for precision
-};
+// Use ranges from constants
+const RANGES = SLIDER_RANGES;
 
 /**
  * Main slider calculator component
@@ -15,9 +12,9 @@ const RANGES = {
  */
 const SliderCalc = ({ activeVariable }) => {
   // State for all three variables
-  const [time, setTime] = useState(5);
-  const [multiple, setMultiple] = useState(2);
-  const [irr, setIRR] = useState(0.15); // 15%
+  const [time, setTime] = useState(RANGES.time.defaultValue);
+  const [multiple, setMultiple] = useState(RANGES.multiple.defaultValue);
+  const [irr, setIRR] = useState(RANGES.irr.defaultValue);
 
   // Flag for tracking which value was last changed (to prevent calculation loops)
   const [lastChanged, setLastChanged] = useState(null);
