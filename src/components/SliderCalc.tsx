@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { calcIRR, calcMultiple, calcTime, formatPercentage, formatMultiple, formatTime } from '../utils/calculationUtils';
 import { SLIDER_RANGES } from '../constants/sliderRanges';
 
+interface SliderCalcProps {
+  activeVariable: 'irr' | 'multiple' | 'time';
+}
+
 // Use ranges from constants
 const RANGES = SLIDER_RANGES;
 
@@ -10,14 +14,14 @@ const RANGES = SLIDER_RANGES;
  * @param {object} props - Component props
  * @param {string} props.activeVariable - Which variable is being controlled ('irr', 'multiple', or 'time')
  */
-const SliderCalc = ({ activeVariable }) => {
+const SliderCalc: React.FC<SliderCalcProps> = ({ activeVariable }) => {
   // State for all three variables
-  const [time, setTime] = useState(RANGES.time.defaultValue);
-  const [multiple, setMultiple] = useState(RANGES.multiple.defaultValue);
-  const [irr, setIRR] = useState(RANGES.irr.defaultValue);
+  const [time, setTime] = useState<number>(RANGES.time.defaultValue);
+  const [multiple, setMultiple] = useState<number>(RANGES.multiple.defaultValue);
+  const [irr, setIRR] = useState<number>(RANGES.irr.defaultValue);
 
   // Flag for tracking which value was last changed (to prevent calculation loops)
-  const [lastChanged, setLastChanged] = useState(null);
+  const [lastChanged, setLastChanged] = useState<'time' | 'multiple' | 'irr' | null>(null);
 
   // Update calculations when values change
   useEffect(() => {
@@ -38,26 +42,26 @@ const SliderCalc = ({ activeVariable }) => {
   }, [time, multiple, irr, lastChanged, activeVariable]);
 
   // Handle slider changes
-  const handleTimeChange = (e) => {
+  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
     setTime(value);
     setLastChanged('time');
   };
 
-  const handleMultipleChange = (e) => {
+  const handleMultipleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
     setMultiple(value);
     setLastChanged('multiple');
   };
 
-  const handleIRRChange = (e) => {
+  const handleIRRChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
     setIRR(value);
     setLastChanged('irr');
   };
 
   // Handle input field changes for manual entry
-  const handleTimeInput = (e) => {
+  const handleTimeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = parseFloat(e.target.value);
     // Validate and constrain the value
     if (!isNaN(value)) {
@@ -67,7 +71,7 @@ const SliderCalc = ({ activeVariable }) => {
     }
   };
 
-  const handleMultipleInput = (e) => {
+  const handleMultipleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = parseFloat(e.target.value);
     // Validate and constrain the value
     if (!isNaN(value)) {
@@ -77,7 +81,7 @@ const SliderCalc = ({ activeVariable }) => {
     }
   };
 
-  const handleIRRInput = (e) => {
+  const handleIRRInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     // For IRR, convert percentage input to decimal
     let value = parseFloat(e.target.value) / 100;
     // Validate the value, only enforce minimum bound
@@ -89,10 +93,10 @@ const SliderCalc = ({ activeVariable }) => {
   };
 
   // Returns whether a slider should be displayed based on the active variable
-  const isSliderHidden = (variable) => variable === activeVariable;
+  const isSliderHidden = (variable: 'irr' | 'multiple' | 'time') => variable === activeVariable;
 
   // Returns whether an input should be read-only
-  const isReadOnly = (variable) => {
+  const isReadOnly = (variable: 'irr' | 'multiple' | 'time') => {
     return variable === activeVariable;
   };
 
