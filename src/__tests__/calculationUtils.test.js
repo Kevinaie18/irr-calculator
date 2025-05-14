@@ -22,18 +22,18 @@ describe('Investment Calculator Utilities', () => {
     test('handles edge cases', () => {
       expect(calcMultiple(-1.1, 5)).toBe(0.5); // invalid input
       expect(calcMultiple(0, 5)).toBe(1); // 0% IRR = 1x
-      expect(calcMultiple(10, 1)).toBe(10); // 1000% IRR for 1 year
+      expect(calcMultiple(10, 1)).toBe(11); // 1000% IRR for 1 year
     });
   });
 
   describe('calcTime', () => {
     test('calculates time correctly for standard values', () => {
-      expect(calcTime(0.15, 2)).toBeCloseTo(4.95, 2); // 15% IRR to reach 2x ≈ 4.95 years
+      expect(calcTime(0.15, 2)).toBeCloseTo(4.959, 2); // 15% IRR to reach 2x ≈ 4.96 years
     });
 
     test('handles edge cases', () => {
       expect(calcTime(-1.1, 2)).toBe(0.5); // invalid input
-      expect(calcTime(0, 2)).toBe(1); // approximation when IRR is near 0
+      expect(calcTime(0, 2)).toBe(Infinity); // mathematically, log(multiple)/log(1+0) is Infinity
       expect(calcTime(0.15, 0)).toBe(0.5); // invalid input
     });
   });

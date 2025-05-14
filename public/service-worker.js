@@ -75,7 +75,7 @@ self.addEventListener('fetch', event => {
         ).catch(() => {
           // If fetch fails (offline), try to return a cached version of any HTML page
           if (event.request.mode === 'navigate') {
-            return caches.match('/index.html');
+            return caches.match('/offline.html');
           }
         });
       })

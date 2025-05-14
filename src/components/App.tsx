@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
-import SliderCalc from './SliderCalc';
+import Tabs, { TabId } from './Tabs';
+import Calculator from './Calculator';
+import { AnimatePresence, motion } from 'framer-motion';
 
-interface Tab {
-  id: 'irr' | 'multiple' | 'time';
-  label: string;
-}
-
-const tabs: Tab[] = [
-  { id: 'irr', label: 'IRR ↔ Multiple & Time' },
-  { id: 'multiple', label: 'Multiple ↔ IRR & Time' },
-  { id: 'time', label: 'Time ↔ IRR & Multiple' },
+const tabs = [
+  { id: 'irr' as TabId, label: 'IRR ↔ Multiple & Time' },
+  { id: 'multiple' as TabId, label: 'Multiple ↔ IRR & Time' },
+  { id: 'time' as TabId, label: 'Time ↔ IRR & Multiple' },
 ];
 
 const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<Tab['id']>('irr');
+  const [activeTab, setActiveTab] = useState<TabId>('irr');
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -28,32 +25,22 @@ const App: React.FC = () => {
 
       {/* Tab Navigation */}
       <div className="bg-white border-b">
-        <nav className="max-w-md mx-auto flex overflow-x-auto" role="tablist" aria-label="Calculator Modes">
-          {tabs.map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex-1 min-w-0 py-4 px-1 text-sm font-medium text-center 
-                ${activeTab === tab.id 
-                  ? 'text-blue-600 border-b-2 border-blue-600 font-bold' 
-                  : 'text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
-              role="tab"
-              aria-selected={activeTab === tab.id}
-              aria-controls={`tabpanel-${tab.id}`}
-              tabIndex={activeTab === tab.id ? 0 : -1}
-            >
-              <span className="truncate">{tab.label}</span>
-            </button>
-          ))}
-        </nav>
+        <Tabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
       </div>
 
       {/* Content Area */}
-      <main className="max-w-md mx-auto bg-white shadow rounded-lg my-6">
-        {/* Different calculator based on active tab */}
-        {activeTab === 'irr' && <SliderCalc activeVariable="irr" />}
-        {activeTab === 'multiple' && <SliderCalc activeVariable="multiple" />}
-        {activeTab === 'time' && <SliderCalc activeVariable="time" />}
+      <main className="max-w-md mx-auto bg-white shadow rounded-lg my-6 min-h-[350px]">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          >
+            <Calculator activeVariable={activeTab} />
+          </motion.div>
+        </AnimatePresence>
       </main>
 
       {/* Footer */}

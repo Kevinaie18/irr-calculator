@@ -30,6 +30,7 @@ export function calcMultiple(irr: number, time: number): number {
  */
 export function calcTime(irr: number, multiple: number): number {
   if (irr <= -1 || multiple <= 0) return 0.5;
+  if (Math.abs(irr) < 1e-8) return 1; // Avoid division by zero, treat as 1 year for 0% IRR
   return Math.log(multiple) / Math.log(1 + irr);
 }
 
