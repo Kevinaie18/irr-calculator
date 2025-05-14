@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#3B82F6" />
+  <meta name="description" content="Investment Calculator: IRR, Multiple, and Time calculator" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Investment Calc" />
+  
+  <!-- iOS icon -->
+  <link rel="apple-touch-icon" href="/logo192.png" />
+  
+  <!-- PWA manifest -->
+  <link rel="manifest" href="/manifest.json" />
+  
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" />
+  
+  <title>Investment Calculator</title>
+  
+  <!-- iOS specific touch styling -->
+  <style>
+    /* Make sliders more touch-friendly on iOS */
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #3B82F6;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      margin-top: -10px;
+    }
+    
+    /* Prevent highlighting/text selection during touch */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      user-select: none;
+    }
+    
+    /* iOS scrolling */
+    body {
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Prevent iOS from zooming on input focus */
+    input, select {
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  
+  <!-- App installation prompt for iOS -->
+  <div id="ios-prompt" class="hidden fixed bottom-0 left-0 right-0 bg-white p-4 shadow-lg border-t border-gray-200 text-center z-50">
+    <p class="mb-2">Add this app to your home screen for a better experience.</p>
+    <p>Tap <span class="inline-block"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+    </svg></span> and then "Add to Home Screen"</p>
+    <button onclick="document.getElementById('ios-prompt').classList.add('hidden')" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded">
+      Got it
+    </button>
+  </div>
+  
+  <script>
+    // Check if app is in standalone mode (PWA installed)
+    if (window.navigator.standalone === false && 
+        window.matchMedia('(display-mode: browser)').matches && 
+        navigator.userAgent.match(/iPhone|iPad|iPod/)) {
+      // Show installation prompt with delay
+      setTimeout(() => {
+        document.getElementById('ios-prompt').classList.remove('hidden');
+      }, 3000);
+    }
+    
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(registration => {
+            console.log('ServiceWorker registration successful');
+          })
+          .catch(err => {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+      });
+    }
+  </script>
+</body>
+</html>

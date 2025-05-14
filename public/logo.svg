@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background -->
+  <rect width="512" height="512" rx="100" fill="url(#gradient)" />
+  
+  <!-- Calculator Display -->
+  <rect x="96" y="96" width="320" height="96" rx="16" fill="white" fill-opacity="0.95" />
+  
+  <!-- Display Content: IRR % -->
+  <text x="116" y="156" font-family="Arial, sans-serif" font-weight="bold" font-size="40" fill="#3b82f6">IRR: 24.5%</text>
+  
+  <!-- Calculator Buttons: Row 1 -->
+  <rect x="96" y="208" width="72" height="72" rx="12" fill="white" fill-opacity="0.9" />
+  <rect x="184" y="208" width="72" height="72" rx="12" fill="white" fill-opacity="0.9" />
+  <rect x="272" y="208" width="72" height="72" rx="12" fill="white" fill-opacity="0.9" />
+  <rect x="360" y="208" width="56" height="72" rx="12" fill="#f59e0b" fill-opacity="0.9" />
+  
+  <!-- Calculator Buttons: Row 2 -->
+  <rect x="96" y="296" width="72" height="72" rx="12" fill="white" fill-opacity="0.9" />
+  <rect x="184" y="296" width="72" height="72" rx="12" fill="white" fill-opacity="0.9" />
+  <rect x="272" y="296" width="72" height="72" rx="12" fill="white" fill-opacity="0.9" />
+  <rect x="360" y="296" width="56" height="72" rx="12" fill="#f59e0b" fill-opacity="0.9" />
+  
+  <!-- Calculator Buttons: Row 3 -->
+  <rect x="96" y="384" width="72" height="72" rx="12" fill="white" fill-opacity="0.9" />
+  <rect x="184" y="384" width="72" height="72" rx="12" fill="white" fill-opacity="0.9" />
+  <rect x="272" y="384" width="72" height="72" rx="12" fill="white" fill-opacity="0.9" />
+  <rect x="360" y="384" width="56" height="72" rx="12" fill="#f59e0b" fill-opacity="0.9" />
+  
+  <!-- Growth Chart Line -->
+  <path d="M116,156 L140,140 L180,148 L220,124 L260,132 L300,108 L340,116 L380,96" 
+        stroke="#10b981" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <!-- Gradient Definition -->
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>
