@@ -89,9 +89,7 @@ const SliderCalc = ({ activeVariable }) => {
   };
 
   // Returns whether a slider should be displayed based on the active variable
-  const isHidden = (variable) => {
-    return variable === activeVariable && variable === 'irr';
-  };
+  const isSliderHidden = (variable) => variable === activeVariable;
 
   // Returns whether an input should be read-only
   const isReadOnly = (variable) => {
@@ -122,23 +120,27 @@ const SliderCalc = ({ activeVariable }) => {
               <span className="text-gray-600">years</span>
             </div>
           </div>
-          <input
-            type="range"
-            min={RANGES.time.min}
-            max={RANGES.time.max}
-            step={RANGES.time.step}
-            value={time}
-            onChange={handleTimeChange}
-            disabled={isReadOnly('time')}
-            className={`w-full h-2 rounded-lg appearance-none cursor-pointer 
-              ${isReadOnly('time') 
-                ? 'bg-gray-300' 
-                : 'bg-gradient-to-r from-blue-300 to-blue-600'}`}
-          />
-          <div className="flex justify-between text-xs text-gray-500 mt-1">
-            <span>{RANGES.time.min}</span>
-            <span>{RANGES.time.max}</span>
-          </div>
+          {!isSliderHidden('time') && (
+            <>
+              <input
+                type="range"
+                min={RANGES.time.min}
+                max={RANGES.time.max}
+                step={RANGES.time.step}
+                value={time}
+                onChange={handleTimeChange}
+                disabled={isReadOnly('time')}
+                className={`w-full h-2 rounded-lg appearance-none cursor-pointer 
+                  ${isReadOnly('time') 
+                    ? 'bg-gray-300' 
+                    : 'bg-gradient-to-r from-blue-300 to-blue-600'}`}
+              />
+              <div className="flex justify-between text-xs text-gray-500 mt-1">
+                <span>{RANGES.time.min}</span>
+                <span>{RANGES.time.max}</span>
+              </div>
+            </>
+          )}
         </div>
 
         {/* Multiple Slider */}
@@ -162,23 +164,27 @@ const SliderCalc = ({ activeVariable }) => {
               <span className="text-gray-600">×</span>
             </div>
           </div>
-          <input
-            type="range"
-            min={RANGES.multiple.min}
-            max={RANGES.multiple.max}
-            step={RANGES.multiple.step}
-            value={multiple}
-            onChange={handleMultipleChange}
-            disabled={isReadOnly('multiple')}
-            className={`w-full h-2 rounded-lg appearance-none cursor-pointer 
-              ${isReadOnly('multiple') 
-                ? 'bg-gray-300' 
-                : 'bg-gradient-to-r from-blue-300 to-blue-600'}`}
-          />
-          <div className="flex justify-between text-xs text-gray-500 mt-1">
-            <span>{RANGES.multiple.min}×</span>
-            <span>{RANGES.multiple.max}×</span>
-          </div>
+          {!isSliderHidden('multiple') && (
+            <>
+              <input
+                type="range"
+                min={RANGES.multiple.min}
+                max={RANGES.multiple.max}
+                step={RANGES.multiple.step}
+                value={multiple}
+                onChange={handleMultipleChange}
+                disabled={isReadOnly('multiple')}
+                className={`w-full h-2 rounded-lg appearance-none cursor-pointer 
+                  ${isReadOnly('multiple') 
+                    ? 'bg-gray-300' 
+                    : 'bg-gradient-to-r from-blue-300 to-blue-600'}`}
+              />
+              <div className="flex justify-between text-xs text-gray-500 mt-1">
+                <span>{RANGES.multiple.min}×</span>
+                <span>{RANGES.multiple.max}×</span>
+              </div>
+            </>
+          )}
         </div>
 
         {/* IRR Display or Slider */}
@@ -201,9 +207,7 @@ const SliderCalc = ({ activeVariable }) => {
               <span className="text-gray-600">%</span>
             </div>
           </div>
-          
-          {/* Only show IRR slider if IRR is not the active variable */}
-          {!isHidden('irr') && (
+          {!isSliderHidden('irr') && (
             <>
               <input
                 type="range"
